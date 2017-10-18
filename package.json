@@ -1,0 +1,25 @@
+{
+  "name": "node-mongo-app",
+  "version": "1.0.0",
+  "description": "A nodejs app to test mongodb",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js --exec babel-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Ossorio",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "consolidate": "^0.14.5",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
+  }
+}
