@@ -20,6 +20,7 @@
     "assert": "^1.4.1",
     "consolidate": "^0.14.5",
     "express": "^4.16.2",
+    "handlebars": "^4.0.11",
     "mongodb": "^2.2.33"
   }
 }

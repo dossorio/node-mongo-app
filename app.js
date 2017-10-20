@@ -1,23 +1,26 @@
-import http from 'http';
 import express from 'express';
 import mongodb from 'mongodb';
 import assert from 'assert';
+import cons from 'consolidate';
 
 const MongoClient = mongodb.MongoClient;
 const app = express();
 let db = null;
 const PORT = 8000;
 
-app.get('/', (req, res) => {
-	res.writeHead(200, {'content-type': 'text/plain'});
+app.engine('hbs', cons.handlebars);
+app.set('view engine', 'hbs');
+app.set('views', `${__dirname}/views`);
 
+app.get('/', (req, res) => {
 	db.collection('names').find({}).toArray()
 		.then((names) => {
-			names.forEach((name) => {
-				res.write(`Name: ${name.name}\n`);
-			});
-			res.end('\nThat was all!');
+			res.render('index', { names: names });
 		});
+});
+
+app.use((req, res) => {
+	res.sendStatus(404);
 });
 
 MongoClient.connect('mongodb://localhost:27017/test', (err, dbConn) => {
