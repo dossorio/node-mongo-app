@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import mongodb from 'mongodb';
 import assert from 'assert';
 import cons from 'consolidate';
@@ -11,12 +12,18 @@ const PORT = 8000;
 app.engine('hbs', cons.handlebars);
 app.set('view engine', 'hbs');
 app.set('views', `${__dirname}/views`);
+app.use(bodyParser());
+
+app.use((err, req, res, next) => {
+	console.log(err.message);
+	console.log(err.stack);
+	res.status(500);
+	res.render('500', { error: err });
+});
 
 app.get('/', (req, res) => {
 	db.collection('names').find({}).toArray()
-		.then((names) => {
-			res.render('index', { names: names });
-		});
+		.then((names) => { res.render('index', { names: names }); });
 });
 
 app.use((req, res) => {
