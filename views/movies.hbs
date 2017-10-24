@@ -1,0 +1,13 @@
+<h1>Movies</h1>
+<a href="/movies/add">Add a movie</a>
+<ul>
+{{#each movies as |movie|}}
+    <li>
+        <p>Title: {{movie.title}}</p>
+        <p>Year: {{movie.year}}</p>
+        <p>Imdb: {{movie.imdb}}</p>
+    </li>
+{{else}}
+    <li>No movies to show</li>
+{{/each}}
+</ul>

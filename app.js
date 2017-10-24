@@ -12,7 +12,7 @@ const PORT = 8000;
 app.engine('hbs', cons.handlebars);
 app.set('view engine', 'hbs');
 app.set('views', `${__dirname}/views`);
-app.use(bodyParser());
+app.use(bodyParser.urlencoded());
 
 app.use((err, req, res, next) => {
 	console.log(err.message);
@@ -23,7 +23,22 @@ app.use((err, req, res, next) => {
 
 app.get('/', (req, res) => {
 	db.collection('names').find({}).toArray()
-		.then((names) => { res.render('index', { names: names }); });
+		.then((names) => { res.render('names', { names: names }); });
+});
+
+app.get('/movies', (req, res) => {
+	db.collection('movies').find({}).toArray()
+		.then((movies) => { res.render('movies', { movies: movies }) });
+});
+
+app.get('/movies/add', (req, res) => {
+	res.render('movie-add');
+});
+
+app.post('/movies/add', (req, res) => {
+	db.collection('movies').insertOne(req.body);
+	console.log(`"${req.body.title}" movie added.`);
+	res.redirect('/movies');
 });
 
 app.use((req, res) => {
